@@ -1,0 +1,27 @@
+.container{
+    margin: auto;
+    padding: auto;
+    border: 2px solid blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
+}
+.center{
+    text-align: center;
+    color: blue;
+    border: 2px solid blue;
+   
+}
+.input_form{
+    text-align: justify;
+    justify-content: center;
+    margin: auto;
+    padding:auto;
+    border: 2px solid blue;
+    border-radius: 10px;
+    width: 400px;
+    height: 300px;
+    
+}
