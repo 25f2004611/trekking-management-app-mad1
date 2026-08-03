@@ -1,39 +1,41 @@
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="../static/main.css">
+
 </head>
 
 <body>
-    <div class="center">
-            <h1>
-                <u>Welcome to the Trekking Management Application</u>
-            </h1>
-    </div>
+    <header>
+            <h2><u>Welcome to the Trekking Management Application</u></h2>
+        </header>
+
     <div class="container">
-        <div class="input_form">
-            <h3><u>Login</u></h3>
-            <form>
-                <table>
-                    <tr>
-                        <td><label for="email">Email:</label></td>
-                        <td><input id="email" type="string" placeholder="Enter your email"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="pwd">Password:</label></td>
-                        <td><input id="pwd" type="password" placeholder="Enter your password"></td>
-                    </tr>
+           <main>
+            <div class="input_form">
+                <h3><u>Login</u></h3>
+                <form>
+                    <table>
+                        <tr>
+                            <td><label for="email">Email:</label></td>
+                            <td><input id="email" type="string" placeholder="Enter your email"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="pwd">Password:</label></td>
+                            <td><input id="pwd" type="password" placeholder="Enter your password"></td>
+                        </tr>
 
-                </table>
-                <div id="button"><button type="submit">Login</button></div>
-            </form>
-            <p>Don't have an account? <a href="register_page.html">Register Here</a></p>
-        </div>
+                    </table>
+                    <div id="button"><button type="submit">Login</button></div>
+                </form>
+                <p>Don't have an account? <a href="/register">Register Here</a></p>
+            </div>
+        </main>
+        <footer>Copyrights &copy; reserved to trekking management app,2026</footer>
     </div>
-
 </body>
 
 </html>
