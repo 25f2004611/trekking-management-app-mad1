@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="../static/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Welcome!</h2>
+
+            <ul>
+                <li><i class="bi bi-house-fill"></i> Dashboard</li>
+                <li><i class="bi bi-signpost-split-fill"></i> Treks</li>
+                <li><i class="bi bi-person-badge-fill"></i> Staff</li>
+                <li><i class="bi bi-person-fill"></i> Users</li>
+                <li><i class="bi bi-calendar-check-fill"></i> Bookings</li>
+                <li><i class="bi bi-search"></i> Search</li>
+                <li><i class="bi bi-box-arrow-right"></i> Logout</li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main">
+
+
+            <header>
+                <h2>Trekking Management Application</h2>
+                <div class="admin">
+                    <i class="bi bi-person-gear"></i>
+                    <span>Admin</span>
+
+                </div>
+
+            </header>
+            <h2 class="title"><u>Add New Trek</u></h2>
+
+            <form action="">
+
+                <table>
+                    <tr>
+                        <td><label for="trek">Trek Name</label></td>
+                        <td><input type="text" id="trek"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="loc">location</label></td>
+                        <td><input type="text" id="loc"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="dif">Difficulty</label></td>
+                        <td><select name="difficulty" id="dif">
+
+                                <option value="easy">Easy</option>
+                                <option value="mod">Moderate</option>
+                                <option value="dif">Difficult</option>
+                                <option value="none" selected>..select</option>
+
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td><label for="dur">Duration(in days)</label></td>
+                        <td><input type="number" id="dur"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="av_slot">Available slots</label></td>
+                        <td><input type="number" id="av_slot"></td>
+                    </tr>
+
+
+                    <tr>
+                        <td><label for="st_date">Start Date</label></td>
+                        <td><input type="date" id="st_date" placeholder="dd/mm/yyyy"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="end_date">End Date</label></td>
+                        <td><input type="date" id="end_date" placeholder="dd/mm/yyyy"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="as_staff">Assign Staff</label></td>
+                        <td><select name="assign" id="as_staff">
+
+                                <option value="trek1">Staff 1</option>
+                                <option value="trek2">Staff 2</option>
+                                <option value="trek3">Staff 3</option>
+                                <option value="none" selected>..select</option>
+
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td><label for="status">Status</label></td>
+                        <td><select name="stat" id="status">
+
+                                <option value="appr">Approved</option>
+                                <option value="comp">Completed</option>
+                                <option value="pend">Pending</option>
+                                <option value="none" selected>..select</option>
+
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td><label for="txtbox">Description</label></td>
+                        <td><textarea name="textbox" id="txtbox" rows="5" cols="20"></textarea></td>
+                    </tr>
+                </table>
+                <br>
+
+                <button type="button" class="btn btn-success">Save</button>
+                <button type="button" class="btn btn-danger">Cancel</button>
+
+
+            </form>
+            <footer>
+                Copyrights &copy; reserved to trekking management app,2026
+            </footer>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

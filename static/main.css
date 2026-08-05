@@ -18,12 +18,18 @@ header{
     padding:15px;
     border-radius:8px;
     box-shadow:0 2px 5px rgba(0,0,0,.2);
-    text-align: center;
+    justify-content: space-between;
+    display: flex;
+}
+.admin{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
 }
 
-
 footer{
-    position: fixed;
+    /* position: absolute; */
     bottom: 0;
     left: 0;
     width: 100%;
@@ -35,17 +41,12 @@ footer{
 
 .input_form{
    
-    width:400px;
-    height:300px;
-    border:2px solid blue;
-    border-radius:10px;
+   
+    /* border:2px solid blue;
+    border-radius:10px; */
     padding:20px;
 
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%, -50%);
-
+    
 }
 
 
@@ -96,7 +97,7 @@ footer{
 
 
 .title{
-    text-align:center;
+    text-align:left;
     margin:20px 0;
 }
 
@@ -147,4 +148,15 @@ footer{
 table th{
     background:#3498db;
     color:white;
+}
+
+/* button */
+/* .button-container{
+    display: flex;
+    gap: 20px;
+} */
+
+.btn-add-trek{
+    text-decoration: none;
+   
 }

@@ -9,33 +9,34 @@
 </head>
 
 <body>
-    <header>
-            <h2><u>Welcome to the Trekking Management Application</u></h2>
-        </header>
+    
+        <div class="main">
 
-    <div class="container">
-           <main>
+            <header>
+            <h2><u>Welcome to the Trekking Management Application</u></h2>
+            </header>
+
             <div class="input_form">
-                <h3><u>Login</u></h3>
                 <form>
                     <table>
+                        <caption><h3>Login</h3></caption>
                         <tr>
                             <td><label for="email">Email:</label></td>
-                            <td><input id="email" type="string" placeholder="Enter your email"></td>
+                            <td ><input id="email" type="string" placeholder="Enter your email"></td>
                         </tr>
                         <tr>
-                            <td><label for="pwd">Password:</label></td>
+                            <td ><label for="pwd">Password:</label></td>
                             <td><input id="pwd" type="password" placeholder="Enter your password"></td>
                         </tr>
 
                     </table>
-                    <div id="button"><button type="submit">Login</button></div>
+                    <br><div id="button"><button type="submit">Login</button></div>
                 </form>
-                <p>Don't have an account? <a href="/register">Register Here</a></p>
+                <br><p>Don't have an account? <a href="{{url_for('register')}}">Register Here</a></p>
             </div>
-        </main>
-        <footer>Copyrights &copy; reserved to trekking management app,2026</footer>
-    </div>
+
+                <footer>Copyrights &copy; reserved to trekking management app,2026</footer>
+        </div>
 </body>
 
 </html>

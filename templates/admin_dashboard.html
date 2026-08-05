@@ -7,8 +7,7 @@
     <title>Admin Dashboard</title>
 
     <link rel="stylesheet" href="../static/main.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
 <body>
@@ -19,14 +18,13 @@
             <h2>Welcome!</h2>
 
             <ul>
-                <li><i class="fa-solid fa-house"></i> Dashboard</li>
-                <li><i class="fa-solid fa-mountain"></i> Treks</li>
-                <li><i class="fa-solid fa-users"></i> Users</li>
-                <li><i class="fa-solid fa-calendar-check"></i> Bookings</li>
-                <li><i class="fa-solid fa-magnifying-glass"></i> Search</li>
-                <li><i class="fa-solid fa-file"></i> Reports</li>
-                <li><i class="fa-solid fa-gear"></i> Settings</li>
-                <li><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+                <li><a href="{{url_for('admin_dash')}}"><i class="bi bi-house-fill"></i> Dashboard</a></li>
+                <li><i class="bi bi-signpost-split-fill"></i> Treks</li>
+                <li><i class="bi bi-person-badge-fill"></i> Staff</li>
+                <li><i class="bi bi-person-fill"></i> Users</li>
+                <li><i class="bi bi-calendar-check-fill"></i> Bookings</li>
+                <li><i class="bi bi-search"></i> Search</li>
+                <li><i class="bi bi-box-arrow-right"></i> Logout</li>
             </ul>
         </div>
 
@@ -35,37 +33,40 @@
 
             <header>
                 <h2>Trekking Management Application</h2>
+                <div class="admin">
+                    <i class="bi bi-person-gear"></i>
+                    <span>Admin</span>
+
+                </div>
             </header>
 
-            <h2 class="title">Dashboard</h2>
+            <h2 class="title"><u>Dashboard</u></h2>
 
             <!-- Cards -->
             <div class="cards">
-
-                <div class="card">
-                    <h3>Total Treks</h3>
-                    <h1>25</h1>
-                    <i class="fa-solid fa-mountain"></i>
-                </div>
-
                 <div class="card">
                     <h3>Total Users</h3>
                     <h1>120</h1>
-                    <i class="fa-solid fa-users"></i>
+                    <i class="bi bi-person-fill"></i>
                 </div>
 
                 <div class="card">
                     <h3>Total Staff</h3>
                     <h1>18</h1>
-                    <i class="fa-solid fa-user-tie"></i>
+                    <i class="bi bi-person-badge-fill"></i>
                 </div>
 
                 <div class="card">
                     <h3>Total Bookings</h3>
                     <h1>185</h1>
-                    <i class="fa-solid fa-calendar-check"></i>
+                    <i class="bi bi-calendar-check-fill"></i>
                 </div>
 
+                <div class="card">
+                    <h3>Total Treks</h3>
+                    <h1>25</h1>
+                    <i class="bi bi-signpost-split-fill"></i>
+                </div>
             </div>
 
             <!-- Table -->
@@ -73,7 +74,7 @@
 
                 <h2>Recent Bookings</h2>
 
-                <table border="1" >
+                <table border="1">
 
                     <tr>
                         <th>Booking ID</th>
