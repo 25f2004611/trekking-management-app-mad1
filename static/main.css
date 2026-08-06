@@ -146,8 +146,7 @@ footer{
 } */
 
 table th{
-    background:#3498db;
-    color:white;
+    text-align: center;
 }
 
 /* button */
@@ -158,5 +157,9 @@ table th{
 
 .btn-add-trek{
     text-decoration: none;
+    margin-right: 10px;
    
+}
+table td{
+    text-align: center;
 }

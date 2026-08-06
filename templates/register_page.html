@@ -10,59 +10,57 @@
 </head>
 
 <body>
-     <header>
-            <h2><u>Welcome to the Trekking Management Application</u></h2>
-        </header>
+    <header>
+        <h2><u>Welcome to the Trekking Management Application</u></h2>
+    </header>
     <div class="main">
-        
-            <div class="input_form">
-         
-                <u>
+        <form action="/">
+            <table class="table-box">
+                <caption>
                     <h3>Register</h3>
-                </u>
-                <form action="/">
-                    <table>
-                        <tr>
+                </caption>
+                <tr>
 
-                            <td> <label for="user">Enter your Name:</label></td>
-                            <td><input type="text" placeholder="Enter your full name"></td>
+                    <td> <label for="user">Enter your Name:</label></td>
+                    <td><input type="text" placeholder="Enter your full name"></td>
 
-                        </tr>
-                        <tr>
-                            <td><label for="address">Enter your address:</label></td>
-                            <td><input type="text" placeholder="Your address"></td>
+                </tr>
+                <tr>
+                    <td><label for="address">Enter your address:</label></td>
+                    <td><input type="text" placeholder="Your address"></td>
 
-                        </tr>
-                        <tr>
-                            <td><label for="email">Enter your E-mail:</label></td>
-                            <td><input type="string" id="email" placeholder="Email Id"></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Enter your E-mail:</label></td>
+                    <td><input type="string" id="email" placeholder="Email Id"></td>
 
-                        </tr>
-                        <tr>
-                            <td><label for="pwd">Enter Password:</label></td>
-                            <td><input type="password" id="pwd" placeholder="Make a strong password"></td>
+                </tr>
+                <tr>
+                    <td><label for="pwd">Enter Password:</label></td>
+                    <td><input type="password" id="pwd" placeholder="Make a strong password"></td>
 
-                        </tr>
-                        <tr>
-                            <td><label for="confirm_pwd">Confirm Password:</label></td>
-                            <td><input type="password" id="confirm_pwd" placeholder="confirm password"></td>
-                        </tr>
-                        <tr>
-                            <td><label for="dropdown">Select a role :</label></td>
-                            <td>
-                                <select name="role" id="dropdown">
-                                    <option value="Trekker">User(Trekker)</option>
-                                    <option value="Trek_staff">Trek Staff</option>
-                                    <option value="none" selected>Select a role</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-                 <div id="button"><input type="button" value="Register"></div>
-                </form>
-                <br><p>Already have an account? <a href="{{url_for('signin')}}">Login Here</a></p>
-            </div>
-        
+                </tr>
+                <tr>
+                    <td><label for="confirm_pwd">Confirm Password:</label></td>
+                    <td><input type="password" id="confirm_pwd" placeholder="confirm password"></td>
+                </tr>
+                <tr>
+                    <td><label for="dropdown">Select a role :</label></td>
+                    <td>
+                        <select name="role" id="dropdown">
+                            <option value="Trekker">User(Trekker)</option>
+                            <option value="Trek_staff">Trek Staff</option>
+                            <option value="none" selected>Select a role</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div id="button"><input type="button" value="Register"></div>
+        </form>
+        <br>
+        <p>Already have an account? <a href="{{url_for('signin')}}">Login Here</a></p>
+
+
         <footer>Copyrights &copy; reserved to trekking management app,2026</footer>
     </div>
 </body>
