@@ -14,7 +14,8 @@ html,body{
 
 
 header{
-    background:white;
+    background:#1B4953;
+    color: white;
     padding:15px;
     border-radius:8px;
     box-shadow:0 2px 5px rgba(0,0,0,.2);
@@ -58,7 +59,7 @@ footer{
 
 .sidebar{
     width:240px;
-    background:#93bbe4;
+    background:#1B4953;
     color:white;
     min-height:100vh;
     padding:20px;
@@ -77,10 +78,11 @@ footer{
     padding:15px;
     cursor:pointer;
     border-radius:5px;
+   
 }
 
 .sidebar ul li:hover{
-    background:#34495e;
+    background:#2E5A44;
 }
 
 .sidebar i{
@@ -163,3 +165,64 @@ table th{
 table td{
     text-align: center;
 }
+li a{
+     color: white;
+}
+a{
+    text-decoration: none;
+    
+}
+body {
+            background-color: #f5f7fa;
+        }
+
+        .profile-container {
+            max-width: 850px;
+            margin: 50px auto;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .profile-header {
+            background: #1B4953;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .profile-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: white;
+            color:#1B4953;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            font-size: 50px;
+        }
+
+        .profile-body {
+            padding: 35px;
+        }
+
+        .info-box {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-label {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .info-value {
+            font-size: 17px;
+            font-weight: 500;
+        }

@@ -2,12 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 db=SQLAlchemy()
 
 #Database models
-# class AdminProfile(db.Model):
-#     __tablename__="admin_profile"
-#     admin_id=db.Column(db.Integer,primary_key=True,autoincrement=True)
-#     username=db.Column(db.String(100),unique=True,nullable=False)
-#     password=db.Column(db.String(50),nullable=False)
-
 
 class UserCredentials(db.Model):
     __tablename__="user_credentials"
@@ -45,7 +39,7 @@ class BookingDetails(db.Model):
     user_id=db.Column(db.Integer,db.ForeignKey('user_details.user_id'))
     trek_id=db.Column(db.Integer,db.ForeignKey('trek_details.trek_id'))
     booking_date=db.Column(db.Date,nullable=False)
-    booking_status=db.Column(db.Enum('Booked','Cancelled','Completed'),nullable=False)
+    # booking_status=db.Column(db.Integer,nullable=False)
 
 class TrekDetails(db.Model):
     __tablename__='trek_details'
@@ -53,9 +47,10 @@ class TrekDetails(db.Model):
     staff_id=db.Column(db.Integer,db.ForeignKey('trek_staff.staff_id'))
     trek_name=db.Column(db.String(100),nullable=False)
     location=db.Column(db.String(50),nullable=False)
-    difficulty=db.Column(db.Enum('Easy','Moderate','Hard'),nullable=False)
+    difficulty=db.Column(db.Integer,nullable=False) #0:'Easy',1:'Moderate',2:'Hard'
     duration_days=db.Column(db.Integer,nullable=False)
     available_slots=db.Column(db.Integer,nullable=False)
     start_date=db.Column(db.Date,nullable=False)
     end_date=db.Column(db.Date,nullable=False)
-    status=db.Column(db.Enum('Approved','Completed','Pending','Open','Closed'))
+    status=db.Column(db.Integer,nullable=False) #0:Pending,1:Approved,2:Open,3:Closed,4:Completed
+    description=db.Column(db.String)

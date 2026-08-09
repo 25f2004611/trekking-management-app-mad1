@@ -17,10 +17,11 @@
             <h2>Welcome!</h2>
 
             <ul>
-                <li><i class="bi bi-house-fill"></i> Dashboard</li>
-                <li><i class="bi bi-signpost-split-fill"></i>My Treks</li>
-                <li><i class="bi bi-person-circle"></i>Profile</li>
-                <li><i class="bi bi-box-arrow-right"></i> Logout</li>
+                 <li><a href="{{url_for('staff_dash')}}"><i class="bi bi-house-fill"></i>Dashboard</a></li>
+                <li><a href="{{url_for('staff_modify_trek')}}"><i class="bi bi-signpost-split-fill"></i>My Treks</a></li>
+                <li><a href="{{url_for('staff_participants')}}"><i class="bi bi-person-fill"></i>Participants</a></li>
+                <li><a href="{{url_for('staff_profile',staff_id=staff.staff_id)}}"><i class="bi bi-person-circle"></i>Profile</a></li>
+                <li><a href="{{url_for('signin')}}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
             </ul>
         </div>
 
@@ -78,25 +79,7 @@
                 </table>
             </div>
 
-            <div class="table-box">
-                <table border="1">
-                    <caption><b>Participants</b></caption>
-                    <tr>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Booking date</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr>
-                        <td>Tanisha</td>
-                        <td>Tanisha@email.com</td>
-                        <td>12 May 2026</td>
-                        <td>Booked</td>
-                    </tr>
-                </table>
-            </div>
-            <button class="btn-add-trek" type="submit">Mark as started</button>
-            <button class="btn-add-trek" type="submit">Mark as completed</button>
+           
 
             <!-- footer -->
             <footer>

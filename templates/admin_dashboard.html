@@ -21,10 +21,10 @@
                 <li><a href="{{url_for('admin_dash')}}"><i class="bi bi-house-fill"></i> Dashboard</a></li>
                 <li><a href="{{url_for('admin_mng_trek')}}"><i class="bi bi-signpost-split-fill"></i> Treks</a></li>
                 <li><a href="{{url_for('admin_mng_staff')}}"><i class="bi bi-person-badge-fill"></i> Staff</a></li>
-                <li><a href="{{url_for('')}}"><i class="bi bi-person-fill"></i> Users</a></li>
-                <li><a href="{{url_for('')}}"><i class="bi bi-calendar-check-fill"></i> Bookings</a></li>
-                <li><a href="{{url_for('')}}"><i class="bi bi-search"></i> Search</a></li>
-                <li><a href="{{url_for('sigin')}}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                <li><a href="{{url_for('admin_users')}}"><i class="bi bi-person-fill"></i>Users</a></li>
+                <li><a href="{{url_for('admin_mng_bookings')}}"><i class="bi bi-calendar-check-fill"></i>Bookings</a></li>
+                <li><i class="bi bi-search"></i> Search</li>
+                <li><a href="{{url_for('signin')}}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
             </ul>
         </div>
 
@@ -84,32 +84,18 @@
                         <th>Booking Date</th>
                         <th>Status</th>
                     </tr>
-
+                    <!-- {% for b in book_data %}
                     <tr>
-                        <td>8001</td>
-                        <td>Amit</td>
-                        <td>Everest Base Camp</td>
-                        <td>12 May 2026</td>
-                        <td>Booked</td>
+                        <td>{{b.booking_id}}</td>
+                        <td>{{b.user_id}}</td>
+                        <td>{{b.trek_id}}</td>
+                        <td>{{b.booking_date}}</td>
+                        <td>{{b.booking_status}}</td>
                     </tr>
-
-                    <tr>
-                        <td>8002</td>
-                        <td>Priya</td>
-                        <td>Roopkund Trek</td>
-                        <td>11 May 2026</td>
-                        <td>Cancelled</td>
-                    </tr>
-
-                    <tr>
-                        <td>8003</td>
-                        <td>Rahul</td>
-                        <td>Kedarnath Trek</td>
-                        <td>10 May 2026</td>
-                        <td>Booked</td>
-                    </tr>
+                    {% endfor %} -->
 
                 </table>
+                <a href="">-View All Bookings</a>
 
             </div>
 
