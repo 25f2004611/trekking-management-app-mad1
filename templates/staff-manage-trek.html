@@ -20,7 +20,7 @@
                  <li><a href="{{url_for('staff_dash')}}"><i class="bi bi-house-fill"></i>Dashboard</a></li>
                 <li><a href="{{url_for('staff_modify_trek')}}"><i class="bi bi-signpost-split-fill"></i>My Treks</a></li>
                 <li><a href="{{url_for('staff_participants')}}"><i class="bi bi-person-fill"></i>Participants</a></li>
-                <li><a href="{{url_for('staff_profile',staff_id=staff.staff_id)}}"><i class="bi bi-person-circle"></i>Profile</a></li>
+                <li><a href="{{url_for('staff_profile')}}"><i class="bi bi-person-circle"></i>Profile</a></li>
                 <li><a href="{{url_for('signin')}}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
             </ul>
         </div>
@@ -36,9 +36,8 @@
 
                 </div>
             </header>
-
-            <!-- Trek Name -->
-            <h2 class="title"><u>{{trek.trek_name}}</u></h2>
+            {% for trek in treks %}
+            
 
             <div class="table-box">
                 <table border="1">
@@ -63,15 +62,15 @@
                         <th>Available slots</th>
                         <td>{{trek.available_slots}}</td>
                     </tr>
+                   
                     <tr>
+                    
                         <th>Status</th>
                         <td>
-                            <select name="status" id="sts">
-                                <option value="op" selected>Open</option>
-                                <option value="clos">Closed</option>
-                            </select>
+                            {{trek.status}}
                         </td>
                     </tr>
+                     {% endfor %}
                 </table>
             </div>
 

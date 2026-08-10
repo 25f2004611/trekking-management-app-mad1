@@ -31,7 +31,7 @@ def signin():
         role=request.form.get("utype")
         user=db.session.query(UserCredentials).filter(UserCredentials.email_id==uname).first()
         if user and int(role)==0:
-            return render_template("admin_dashboard.html")
+            return redirect(url_for("admin_dash"))
         elif user and int(role)==1:
             session["user_email_id"]=user.email_id
             session['user_user_id']=user.user_id
@@ -41,6 +41,7 @@ def signin():
             staff = TrekStaff.query.filter_by(user_id=user.user_id).first()
 
             if staff:
+              session["staff_id"]=staff.staff_id
               return redirect(url_for("staff_dash", staff_id=staff.staff_id))
 
             return "Staff details not found", 404
@@ -91,7 +92,7 @@ def admin_dash():
     stats={
         "total_users":user_count,"total_staff":staff_count,"total_bookings":booking_count,"total_treks":trek_count
     }
-    return render_template("admin_dashboard.html",stats=stats)
+    return render_template("admin_dashboard.html",s=stats)
 
 #user dashboard
 @app.route("/user_dashboard")
@@ -194,25 +195,13 @@ def admin_modify():
 @app.route("/staff_trek")
 def staff_modify_trek():
     treks=TrekDetails.query.all()
-    return render_template("staff-manage-trek.html",trek=treks)
-
-#User booking details
-@app.route("/booking_info")
-def booking_details():
-    return render_template("user_bookings.html")
-
-#User trekking details
-@app.route("/user_trek/<int:trek_id>")
-def user_trekking(trek_id):
-    trek=TrekDetails.query.get(trek_id)
-    if trek is None:
-        return "Trek Not Found",404
-    return render_template("user_trek_details.html",trek=trek)
+    return render_template("staff-manage-trek.html",treks=treks)
 
 #User trekking history
 @app.route("/trekking_history")
 def trek_history():
-    return render_template("user_trekking_history.html")
+    treks=TrekDetails.query.all()
+    return render_template("user_trekking_history.html",treks=treks)
 
 #Staff can view participants
 @app.route("/participants")
