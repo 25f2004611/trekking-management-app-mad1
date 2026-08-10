@@ -21,9 +21,10 @@
 
             <ul>
                 <li><a href="{{url_for('user_dash')}}"><i class="bi bi-house-fill"></i>Dashboard</a></li>
-                <li><a href="{{url_for('user_trekking')}}"><i class="bi bi-signpost-split-fill"></i>Browse Treks</a></li>
+                <li><a href="{{url_for('user_trekking',trek_id=trek.trek_id)}}"><i class="bi bi-signpost-split-fill"></i>Browse Treks</a></li>
                 <li><a href="{{url_for('booking_details')}}"><i class="bi bi-calendar-check"></i>My Bookings</a></li>
                 <li><a href="{{url_for('trek_history')}}"><i class="bi bi-clock-history"></i>History</a></li>
+                <li><a href="{{url_for('search_trek')}}"><i class="bi bi-search"></i> Search</a></li>
                 <li><a href="{{url_for('user_profile')}}"><i class="bi bi-person-circle"></i>Profile</a></li>
                 <li><a href="{{url_for('signin')}}"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
             </ul>
@@ -53,7 +54,7 @@
                         </div>
 
                         <h2 class="mt-3">
-                            {{ user.name }}
+                            
                         </h2>
 
                         <p class="mb-0">Trekker</p>
@@ -74,7 +75,7 @@
                                 <div class="info-box">
                                     <div class="info-label">Full Name</div>
                                     <div class="info-value">
-                                        {{ user.name }}
+                                        {{user.full_name}}
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +84,7 @@
                                 <div class="info-box">
                                     <div class="info-label">Email</div>
                                     <div class="info-value">
-                                        {{ user.email }}
+                                       {{user.email_id}}
                                     </div>
                                 </div>
                             </div>
@@ -92,16 +93,7 @@
                                 <div class="info-box">
                                     <div class="info-label">Phone Number</div>
                                     <div class="info-value">
-                                        {{ user.phone }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="info-box">
-                                    <div class="info-label">Username</div>
-                                    <div class="info-value">
-                                        {{ user.username }}
+                                    {{user.phone_num}}
                                     </div>
                                 </div>
                             </div>
@@ -114,11 +106,6 @@
                             <a href="{{ url_for('user_dash') }}" class="btn btn-secondary me-2">
                                 <i class="bi bi-arrow-left"></i>
                                 Back to Dashboard
-                            </a>
-
-                            <a href="{{ url_for('edit_profile') }}" class="btn btn-success">
-                                <i class="bi bi-pencil-square"></i>
-                                Edit Profile
                             </a>
 
                         </div>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search</title>
+
+    <style>
+        
+
+        .search-box {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        input {
+            width: 400px;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+       
+
+       
+    </style>
+</head>
+
+<body>
+
+    <h1>Search</h1>
+
+    <div class="search-box">
+        <form method="GET" action="{{ url_for('search_trek') }}">
+
+            <input
+                type="text"
+                name="q"
+                placeholder="Search trek"
+                value="{{ query }}"
+            >
+
+            <button type="submit">Search</button>
+
+        </form>
+    </div>
+
+
+    <!-- TREKS -->
+    {% if treks %}
+        <h2>Treks</h2>
+
+        <table border="1">
+            <tr>
+                <th>Trek ID</th>
+                <th>Trek Name</th>
+            </tr>
+
+            {% for trek in treks %}
+            <tr>
+                <td>{{ trek.trek_id }}</td>
+                <td>{{ trek.trek_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+</body>
+</html>

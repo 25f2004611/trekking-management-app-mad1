@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search</title>
+
+    <style>
+        
+
+        .search-box {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        input {
+            width: 400px;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+       
+
+       
+    </style>
+</head>
+
+<body>
+
+    <h1>Search</h1>
+
+    <div class="search-box">
+        <form method="GET" action="{{ url_for('search') }}">
+
+            <input
+                type="text"
+                name="q"
+                placeholder="Search trek, staff or user..."
+                value="{{ query }}"
+            >
+
+            <button type="submit">Search</button>
+
+        </form>
+    </div>
+
+
+    <!-- TREKS -->
+    {% if treks %}
+        <h2>Treks</h2>
+
+        <table border="1">
+            <tr>
+                <th>Trek ID</th>
+                <th>Trek Name</th>
+            </tr>
+
+            {% for trek in treks %}
+            <tr>
+                <td>{{ trek.trek_id }}</td>
+                <td>{{ trek.trek_name }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+
+    <!-- STAFF -->
+    {% if staff %}
+        <h2>Staff</h2>
+
+        <table border="1">
+            <tr>
+                <th>Staff ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+
+            {% for s in staff %}
+            <tr>
+                <td>{{ s.staff_id }}</td>
+                <td>{{ s.full_name }}</td>
+                <td>{{ s.email_id }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+
+    <!-- USERS -->
+    {% if users %}
+        <h2>Users</h2>
+
+        <table border="1">
+            <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+
+            {% for u in users %}
+            <tr>
+                <td>{{ u.trekker_id }}</td>
+                <td>{{ u.full_name }}</td>
+                <td>{{ u.email_id }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+
+    {% if query and not treks and not staff and not users %}
+        <h2>No results found for "{{ query }}"</h2>
+    {% endif %}
+
+</body>
+</html>

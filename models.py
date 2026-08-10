@@ -30,7 +30,7 @@ class TrekStaff(db.Model):
     password=db.Column(db.String(50),nullable=False)
     phone_num=db.Column(db.String(20),nullable=False)
     address=db.Column(db.String(100),nullable=False)
-    approval_status=db.Column(db.Integer,nullable=False,default=0) #0-register,1-Approved
+    approval_status=db.Column(db.Integer,nullable=False,default=0) #0-pending,1-approved,2-rejected
     blacklist_status=db.Column(db.Boolean,default=False)
 
 class BookingDetails(db.Model):

@@ -23,7 +23,7 @@
                 <li><a href="{{url_for('admin_mng_staff')}}"><i class="bi bi-person-badge-fill"></i> Staff</a></li>
                 <li><a href="{{url_for('admin_users')}}"><i class="bi bi-person-fill"></i>Users</a></li>
                 <li><a href="{{url_for('admin_mng_bookings')}}"><i class="bi bi-calendar-check-fill"></i>Bookings</a></li>
-                <li><i class="bi bi-search"></i> Search</li>
+                <li><a href="{{url_for('search')}}"><i class="bi bi-search"></i> Search</a></li>
                 <li><a href="{{url_for('signin')}}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
             </ul>
         </div>
@@ -49,12 +49,27 @@
                         <th>Booking date</th>
                         <th>Status</th>
                     </tr>
+                    {% for user,booking,trek in user_data %}
                     <tr>
-                        <td>Tanisha</td>
-                        <td>Tanisha@email.com</td>
-                        <td>12 May 2026</td>
-                        <td>Booked</td>
+                        <td>{{user.full_name}}</td>
+                        <td>{{user.email_id}}</td>
+                        <td>{{booking.booking_date}}</td>
+                        <td>
+                            {% if trek.status==0 %}
+                              Pending
+                            {% elif trek.status==1 %}
+                              Approved
+                            {% elif trek.status==2 %}
+                              Open
+                            {% elif trek.status==3 %}
+                               Closed
+                            {% elif trek.status==4 %}
+                               Completed
+                            {% endif %}
+
+                            </td>
                     </tr>
+                    {% endfor %}
                 </table>
             </div>
 

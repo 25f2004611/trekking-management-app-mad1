@@ -23,7 +23,7 @@
                 <li><a href="{{url_for('admin_mng_staff')}}"><i class="bi bi-person-badge-fill"></i> Staff</a></li>
                 <li><a href="{{url_for('admin_users')}}"><i class="bi bi-person-fill"></i>Users</a></li>
                 <li><a href="{{url_for('admin_mng_bookings')}}"><i class="bi bi-calendar-check-fill"></i>Bookings</a></li>
-                <li><i class="bi bi-search"></i> Search</li>
+               <li><a href="{{url_for('search')}}"><i class="bi bi-search"></i> Search</a></li>
                 <li><a href="{{url_for('signin')}}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
             </ul>
         </div>
@@ -58,17 +58,19 @@
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
+                {% for trek in trek_list %}
                 <tr>
-                    <td>1</td>
-                    <td colspan="2">Everest Base Camp</td>
-                    <td>Nepal</td>
-                    <td>Hard</td>
-                    <td>110</td>
-                    <td>Open</td>
+                    <td>{{trek.trek_id}}</td>
+                    <td colspan="2">{{trek.trek_name}}</td>
+                    <td>{{trek.location}}</td>
+                    <td>{{trek.difficulty}}</td>
+                    <td>{{trek.available_slots}}</td>
+                    <td>{{trek.status}}</td>
                     <td>
                         <button type="submit">Remove</button>
                     </td>
                 </tr>
+                {% endfor %}
              </table>
             </div> 
             

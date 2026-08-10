@@ -1,8 +1,10 @@
-from flask import Flask, render_template,request,redirect,url_for
+from flask import Flask, render_template,request,redirect,url_for,session
 from models import db,UserCredentials,UserDetails,TrekStaff,TrekDetails,BookingDetails
-from datetime import datetime
+from datetime import datetime,date
+from sqlalchemy import func
 
 app=Flask(__name__)
+app.secret_key='hello'
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///trekking_database.sqlite3'
 db.init_app(app)
 
@@ -31,15 +33,18 @@ def signin():
         if user and int(role)==0:
             return render_template("admin_dashboard.html")
         elif user and int(role)==1:
-            return render_template("user_dashboard.html")
+            session["user_email_id"]=user.email_id
+            session['user_user_id']=user.user_id
+            return redirect(url_for("user_dash"))
         elif user and int(role)==2:
+            session["user_email_id"]=user.email_id
             staff = TrekStaff.query.filter_by(user_id=user.user_id).first()
 
             if staff:
               return redirect(url_for("staff_dash", staff_id=staff.staff_id))
 
             return "Staff details not found", 404
-            return render_template("staff_dashboard.html")
+            # return render_template("staff_dashboard.html")
         else:
             return redirect(url_for('register'))
     else:
@@ -79,32 +84,88 @@ def register():
 #admin dashboard
 @app.route("/admin_dashboard")
 def admin_dash():
-    book_data=get_all_booking()
-    return render_template("admin_dashboard.html",book_data=book_data)
+    user_count=db.session.scalar(db.select(func.count(UserDetails.trekker_id)))
+    staff_count=db.session.scalar(db.select(func.count(TrekStaff.staff_id)))
+    booking_count=db.session.scalar(db.select(func.count(BookingDetails.booking_id)))
+    trek_count=db.session.scalar(db.select(func.count(TrekDetails.trek_id)))
+    stats={
+        "total_users":user_count,"total_staff":staff_count,"total_bookings":booking_count,"total_treks":trek_count
+    }
+    return render_template("admin_dashboard.html",stats=stats)
 
 #user dashboard
 @app.route("/user_dashboard")
 def user_dash():
+    book_data=db.session.query(TrekDetails).all()
 
-    return render_template("user_dashboard.html")
+    return render_template("user_dashboard.html",treks=book_data)
 
 #staff dashboard
 @app.route("/staff_dashboard")
-def staff_dash(staff_id):
-    # staff=TrekStaff.query.get(staff_id)
-    # if staff is None:
-    #     return "Staff Not Found",404
-    return render_template("staff_dashboard.html")
+def staff_dash():
+    trek=TrekDetails.query.all()
+    current_staff_id = session.get('staff_id')
+    assigned_count=db.session.query(TrekDetails).filter_by(staff_id=current_staff_id).count()
+    total_participants = db.session.query(func.count(BookingDetails.booking_id))\
+        .join(TrekDetails, BookingDetails.trek_id == TrekDetails.trek_id)\
+        .filter(TrekDetails.staff_id == current_staff_id)\
+        .scalar() or 0
+    open_treks_count = db.session.query(TrekDetails)\
+        .filter(TrekDetails.staff_id == current_staff_id, TrekDetails.status == 1)\
+        .count()
+
+    return render_template("staff_dashboard.html",treks=trek,task_count=assigned_count,total_participants=total_participants,open_treks_count=open_treks_count)
 
 #Admin manages Staff
 @app.route("/manage_staff")
 def admin_mng_staff():
-    return render_template("admin_manage_staff.html")
+    staff_members=TrekStaff.query.all()
+    pending_req = db.session.scalar(db.select(func.count(TrekStaff.staff_id)).where(TrekStaff.approval_status == 0))
+    approved_req = db.session.scalar(db.select(func.count(TrekStaff.staff_id)).where(TrekStaff.approval_status == 1))
+    rejected_req = db.session.scalar(db.select(func.count(TrekStaff.staff_id)).where(TrekStaff.approval_status == 2))
+    
+
+    stats = {
+        
+        # Add the counts here to make them available in Jinja
+        "pending_requests": pending_req,
+        "approved_requests": approved_req,
+        "rejected_requests": rejected_req
+    }
+    return render_template("admin_manage_staff.html",staff_list=staff_members,stats=stats)
+
+
+#admin can approve or reject
+@app.route('/trekstaff/approve', methods=['POST'])
+def approve_staff():
+    
+    staff_id = request.form.get('staff_id')
+    staff_member = TrekStaff.query.get(staff_id)
+    
+    if staff_member:
+       
+        staff_member.approval_status = '1' 
+        db.session.commit() # Save changes to the DB file
+        
+    return redirect('/manage_staff') 
+
+@app.route('/trekstaff/reject', methods=['POST'])
+def reject_staff():
+    staff_id = request.form.get('staff_id')
+    staff_member = TrekStaff.query.get(staff_id)
+    
+    if staff_member:
+        staff_member.approval_status = ''
+        db.session.commit() # Save changes to the DB file
+        
+    return redirect('/manage_staff')
+
 
 #Admin manage treks
 @app.route("/manage_trek")
 def admin_mng_trek():
-    return render_template("admin_manage_treks.html")
+    trek_info=TrekDetails.query.all()
+    return render_template("admin_manage_treks.html",trek_list=trek_info)
 
 #Admin functions(add/edit)
 @app.route("/admin_func",methods=["GET","POST"])
@@ -118,11 +179,11 @@ def admin_modify():
         av_slot=int(request.form.get("slot"))
         st_date=datetime.strptime(request.form.get("start_date"),"%Y-%m-%d").date()
         end_date=datetime.strptime(request.form.get("end_date"),"%Y-%m-%d").date()
-        assign_st=int(request.form.get("staff_id"))
-        st=int(request.form.get("stat"))
+        assign_st=int(request.form.get("assign"))
+        st=(request.form.get("stat"))
         desc=request.form.get("description")
         booking=TrekDetails(trek_name=tname,location=location,difficulty=difficulty,duration_days=duration,available_slots=av_slot,
-                            start_date=st_date,end_date=end_date,staff_id=assign_st,status=st)
+                            start_date=st_date,end_date=end_date,staff_id=assign_st,status=st,description=desc)
         db.session.add(booking)
         db.session.commit()
         return redirect(url_for("admin_mng_trek"))
@@ -132,7 +193,8 @@ def admin_modify():
 #staff manages trek 
 @app.route("/staff_trek")
 def staff_modify_trek():
-    return render_template("staff-manage-trek.html")
+    treks=TrekDetails.query.all()
+    return render_template("staff-manage-trek.html",trek=treks)
 
 #User booking details
 @app.route("/booking_info")
@@ -140,9 +202,12 @@ def booking_details():
     return render_template("user_bookings.html")
 
 #User trekking details
-@app.route("/user_trek")
-def user_trekking():
-    return render_template("user_trek_details.html")
+@app.route("/user_trek/<int:trek_id>")
+def user_trekking(trek_id):
+    trek=TrekDetails.query.get(trek_id)
+    if trek is None:
+        return "Trek Not Found",404
+    return render_template("user_trek_details.html",trek=trek)
 
 #User trekking history
 @app.route("/trekking_history")
@@ -152,28 +217,42 @@ def trek_history():
 #Staff can view participants
 @app.route("/participants")
 def staff_participants():
-    return render_template("staff_view_participants.html")
+    participants_list = db.session.query(
+        BookingDetails.booking_id,
+        BookingDetails.booking_date,
+        UserDetails.full_name,
+        UserDetails.email_id
+    ).join(UserDetails, BookingDetails.user_id == UserDetails.user_id).all()
+    
+    
+    return render_template("staff_view_participants.html",participants=participants_list)
 
+#Admin view bookings
 @app.route("/admin_bookings")
 def admin_mng_bookings():
-    return render_template("admin_bookings.html")
+    bookings=BookingDetails.query.all()
+    return render_template("admin_bookings.html",bookings=bookings)
 
 @app.route("/admin_trekkers")
 def admin_users():
-    return render_template('admin_view_users.html')
+    user_data=db.session.query(UserDetails,BookingDetails,TrekDetails).join(BookingDetails,UserDetails.user_id==BookingDetails.user_id).join(
+        TrekDetails,BookingDetails.trek_id==TrekDetails.trek_id
+    ).all()
+    return render_template('admin_view_users.html',user_data=user_data)
 
+#Staff Profile
 @app.route("/staff_pr")
-def staff_profile(staff_id):
-    staff=db.session.query(TrekStaff).filter(TrekStaff.staff_id==staff_id).first()
-    if staff is None:
-        return "Staff not found", 404
-
-    return render_template("staff_profile.html", staff=staff)
+def staff_profile():
+    email=session.get("user_email_id")
+    staff=TrekStaff.query.filter_by(email_id=email).first()
+    return render_template("staff_profile.html",staff=staff)
     
-
+#Trekker profile
 @app.route("/trekker_profile")
 def user_profile():
-    return render_template("user_profile.html")
+    email=session.get("user_email_id")
+    user=UserDetails.query.filter_by(email_id=email).first()
+    return render_template("user_profile.html",user=user)
 
 
 #Additional python functions
@@ -181,9 +260,101 @@ def get_all_booking():
     book_data=db.session.query(BookingDetails).filter().all()
     return book_data
 
-# def get_all_staff_details():
-#     staff=db.session.query(TrekStaff).filter().all()
-#     return staff
+
+#search trek,staff,users
+@app.route("/search")
+def search():
+    query = request.args.get("q", "").strip()
+
+    treks = []
+    staff = []
+    users = []
+
+    if query:
+        search = f"%{query}%"
+
+        # Search Treks
+        treks = TrekDetails.query.filter(
+            TrekDetails.trek_name.ilike(search)
+        ).all()
+
+        # Search Staff
+        staff = TrekStaff.query.filter(
+            (TrekStaff.full_name.ilike(search)) |
+            (TrekStaff.email_id.ilike(search))
+        ).all()
+
+        # Search Users
+        users = UserDetails.query.filter(
+            (UserDetails.full_name.ilike(search)) |
+            (UserDetails.email_id.ilike(search))
+        ).all()
+
+    return render_template(
+        "search.html",
+        query=query,
+        treks=treks,
+        staff=staff,
+        users=users
+    )
+
+#search treks for users
+@app.route("/search_trek")
+def search_trek():
+    query = request.args.get("q", "").strip()
+
+    treks = []
+    if query:
+        search = f"%{query}%"
+
+        # Search Treks
+        treks = TrekDetails.query.filter(
+            TrekDetails.trek_name.ilike(search)
+        ).all()
+
+    
+    return render_template(
+        "search_treks.html",
+        query=query,
+        treks=treks,
+       
+    )
+@app.route('/book_trek/<int:trek_id>', methods=['POST'])
+def book_trek(trek_id):
+
+    # Get logged-in user's ID
+    user_user_id = session.get('user_user_id')
+
+    if not user_user_id:
+        return redirect(url_for('signin'))
+
+    # Find the selected trek
+    trek = TrekDetails.query.get(trek_id)
+
+    if not trek:
+        return "Trek not found"
+
+    # Check available slots
+    if trek.available_slots <= 0:
+        return "No slots available"
+
+    # Create booking
+    booking = BookingDetails(
+        user_id=user_user_id,
+        trek_id=trek_id,
+        booking_date=date.today()
+    )
+
+    # Reduce available slots
+    trek.available_slots -= 1
+
+    # Save to database
+    db.session.add(booking)
+    db.session.commit()
+
+    return redirect(url_for('user_dash'))
+
+
 
 if __name__=="__main__":
     app.run(debug=True)

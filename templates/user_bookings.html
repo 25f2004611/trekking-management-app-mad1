@@ -16,9 +16,10 @@
 
             <ul>
                 <li><a href="{{url_for('user_dash')}}"><i class="bi bi-house-fill"></i>Dashboard</a></li>
-                <li><a href="{{url_for('user_trekking')}}"><i class="bi bi-signpost-split-fill"></i>Browse Treks</a></li>
+                <li><a href="{{url_for('user_trekking',trek_id=trek.trek_id)}}"><i class="bi bi-signpost-split-fill"></i>Browse Treks</a></li>
                 <li><a href="{{url_for('booking_details')}}"><i class="bi bi-calendar-check"></i>My Bookings</a></li>
                 <li><a href="{{url_for('trek_history')}}"><i class="bi bi-clock-history"></i>History</a></li>
+                <li><a href="{{url_for('search_trek')}}"><i class="bi bi-search"></i> Search</a></li>
                 <li><a href="{{url_for('user_profile')}}"><i class="bi bi-person-circle"></i>Profile</a></li>
                 <li><a href="{{url_for('signin')}}"><i class="bi bi-box-arrow-right"></i>Logout</a></li>
             </ul>
@@ -45,16 +46,16 @@
                 <tr>
                     <th>Trek Name</th>
                     <th>Booking Date</th>
-                    <th>Trek Dates</th>
+                    <th>Trek Start Dates</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
                 <tr>
-                    <td>Everest camp</td>
-                    <td>12 May 2026</td>
-                    <td>15 May-20 May 2026</td>
-                    <td>Booked/cancelled/comp</td>
-                    <td><a href="">View Details</a></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><a href=""></a></td>
                 </tr>
              </table>
              </div>

@@ -23,7 +23,7 @@
                 <li><a href="{{url_for('admin_mng_staff')}}"><i class="bi bi-person-badge-fill"></i> Staff</a></li>
               <li><a href="{{url_for('admin_users')}}"><i class="bi bi-person-fill"></i>Users</a></li>
                 <li><a href="{{url_for('admin_mng_bookings')}}"><i class="bi bi-calendar-check-fill"></i>Bookings</a></li>
-                <li><i class="bi bi-search"></i> Search</li>
+                <li><a href="{{url_for('search')}}"><i class="bi bi-search"></i> Search</a></li>
                 <li><a href="{{url_for('signin')}}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
             </ul>
         </div>
@@ -46,18 +46,18 @@
             <div class="cards">
                 <div class="card">
                     <h3>Pending</h3>
-                    <h4>(3)</h4>
+                    <h4>{{stats.pending_requests}}</h4>
                     
                 </div>
 
                 <div class="card">
                     <h3>Approved</h3>
-                    <h4>(18)</h4>
+                    <h4>{{stats.approved_requests}}</h4>
                 </div>
 
                 <div class="card">
                     <h3>Rejected</h3>
-                    <h4>(2)</h4>
+                    <h4>{{stats.rejected_requests}}</h4>
                     
                 </div>
 
@@ -74,17 +74,24 @@
                     <th>Status</th>
                     <th colspan="2">Action</th>
                 </tr>
+                {% for staff in staff_list %}
                 <tr>
-                    <td>S001</td>
-                    <td>Vikash Singh</td>
-                    <td>vikash@email.com</td>
-                    <td>9356XXXX23</td>
-                    <td>Pending</td>
+                    <td>{{staff.staff_id}}</td>
+                    <td>{{staff.full_name}}</td>
+                    <td>{{staff.email_id}}</td>
+                    <td>{{staff.phone_num}}</td>
+                    <td>{{staff.approval_status}}</td>
                     <td colspan="2">
-                        <button type="submit">Approve</button>
-                        <button type="submit">Reject</button>
+                        <form method="POST">
+                            <input type="hidden" name="staff_id" value="{{staff.staff_id}}">
+                            <button type="submit" formaction="/trekstaff/approve">Approved</button>
+                            <button type="submit" formaction="/trekstaff/reject">Rejected</button>
+
+                        </form>
+                        
                     </td>
                 </tr>
+                {% endfor %}
              </table>
             </div>
              <!-- footer -->

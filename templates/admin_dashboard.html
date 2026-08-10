@@ -23,7 +23,7 @@
                 <li><a href="{{url_for('admin_mng_staff')}}"><i class="bi bi-person-badge-fill"></i> Staff</a></li>
                 <li><a href="{{url_for('admin_users')}}"><i class="bi bi-person-fill"></i>Users</a></li>
                 <li><a href="{{url_for('admin_mng_bookings')}}"><i class="bi bi-calendar-check-fill"></i>Bookings</a></li>
-                <li><i class="bi bi-search"></i> Search</li>
+                <li><a href="{{url_for('search')}}"><i class="bi bi-search"></i> Search</a></li>
                 <li><a href="{{url_for('signin')}}"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
             </ul>
         </div>
@@ -46,59 +46,30 @@
             <div class="cards">
                 <div class="card">
                     <h3>Total Users</h3>
-                    <h1>120</h1>
+                    <h1>{{stats.total_users}}</h1>
                     <i class="bi bi-person-fill"></i>
                 </div>
 
                 <div class="card">
                     <h3>Total Staff</h3>
-                    <h1>18</h1>
+                    <h1>{{stats.total_staff}}</h1>
                     <i class="bi bi-person-badge-fill"></i>
                 </div>
 
                 <div class="card">
                     <h3>Total Bookings</h3>
-                    <h1>185</h1>
+                    <h1>{{stats.total_bookings}}</h1>
                     <i class="bi bi-calendar-check-fill"></i>
                 </div>
 
                 <div class="card">
                     <h3>Total Treks</h3>
-                    <h1>25</h1>
+                    <h1>{{stats.total_treks}}</h1>
                     <i class="bi bi-signpost-split-fill"></i>
                 </div>
             </div>
-
-            <!-- Table -->
-            <div class="table-box">
-
-               
-
-                <table border="1">
-                    <caption><b>Recent Bookings</b></caption>
-
-                    <tr>
-                        <th>Booking ID</th>
-                        <th>User</th>
-                        <th>Trek</th>
-                        <th>Booking Date</th>
-                        <th>Status</th>
-                    </tr>
-                    <!-- {% for b in book_data %}
-                    <tr>
-                        <td>{{b.booking_id}}</td>
-                        <td>{{b.user_id}}</td>
-                        <td>{{b.trek_id}}</td>
-                        <td>{{b.booking_date}}</td>
-                        <td>{{b.booking_status}}</td>
-                    </tr>
-                    {% endfor %} -->
-
-                </table>
-                <a href="">-View All Bookings</a>
-
-            </div>
-
+ 
+         <!-- footer  -->
             <footer>
                 Copyrights &copy; reserved to trekking management app,2026
             </footer>

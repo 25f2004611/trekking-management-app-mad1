@@ -47,12 +47,14 @@
                         <th>Booking date</th>
                         <th>Status</th>
                     </tr>
+                    {% for participant in participants %}
                     <tr>
-                        <td>Tanisha</td>
-                        <td>Tanisha@email.com</td>
-                        <td>12 May 2026</td>
+                        <td>{{participant.full_name}}</td>
+                        <td>{{participant.email_id}}</td>
+                        <td>{{participant.booking_date}}</td>
                         <td>Booked</td>
                     </tr>
+                    {% endfor %}
                 </table>
             </div>
             <button class="btn-add-trek" type="submit">Mark as started</button>
